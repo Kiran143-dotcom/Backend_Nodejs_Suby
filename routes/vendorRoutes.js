@@ -8,7 +8,8 @@ router.post('/register', vendorController.vendorRegister);
 router.post('/login',vendorController.vendorLogin);
 
 router.get('/all-vendors', vendorController.getAllVendors);
-router.get('/single-vendor/:apple',vendorController.getVendorById)
+router.get('/:vendorId', vendorController.getVendorById);
+
 
 module.exports = router;
 

@@ -9,7 +9,7 @@ const path= require('path');
             cb(null,'uploads/');
         },
         filename: function (req, file, cb) {
-            cb(null, Date.now() + Path.extname(file.originalname));
+            cb(null, Date.now() + path.extname(file.originalname));
         }
     });
 
@@ -24,7 +24,7 @@ const addFirm = async(req, res)=>{
 
     const vendor = await Vendor.findById(req.vendorId);
     if(!vendor){
-        res.status(404).json({messae: "Vendor not found"})
+        res.status(404).json({message: "Vendor not found"})
     }
 
     const firm = new Firm({
@@ -33,12 +33,14 @@ const addFirm = async(req, res)=>{
 
     const savedFirm = await firm.save();
 
-    vendor.firm.push(savedFirm)
+    const firmId=savedFirm._id;
 
-    await vendor.save()
+    vendor.firm.push(savedFirm._id);
+
+    await vendor.save();
 
 
-    return res.status(200).json({message: 'firm added successfully'})
+    return res.status(200).json({message: 'firm added successfully',firmId});
     } catch (error) {
         console.error(error)
         res.status(500).json("internal server error")
