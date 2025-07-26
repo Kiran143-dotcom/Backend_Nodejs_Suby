@@ -11,12 +11,9 @@ const productSchema = new mongoose.Schema({
         required : true
     },
     category:{
-        type:[
-            {
-                type:String,
-                enum : ['veg', 'non-veg']
-            }
-        ]
+        type: String,
+        enum : ['veg', 'non-veg'],
+        required: true
     },
     image:{
         type: String
@@ -27,10 +24,10 @@ const productSchema = new mongoose.Schema({
     description:{
         type:String
     },
-    firm:[{
+    firm:{
         type : mongoose.Schema.Types.ObjectId,
         ref: 'Firm'
-    }]
+    }
 })
 
 const Product = mongoose.model('Product',productSchema);

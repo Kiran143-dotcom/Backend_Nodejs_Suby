@@ -14,16 +14,16 @@ const app = express()
 const PORT = process.env.PORT || 4000;
 
 dotEnv.config();
-app.use(cors())
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGO_URI)
     .then(()=>console.log("MongoDB connected successfully"))
     .catch((error) => console.log(error))
-
-app.use(bodyParser.json())
 app.use('/Vendor',vendorRoutes);
 app.use('/firm', firmRoutes)
-app.use('/products',productRoutes);
+app.use('/product',productRoutes);
 app.use('/uploads', express.static('uploads'));
 
 app.listen(PORT, ()=>{

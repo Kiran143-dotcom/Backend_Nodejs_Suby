@@ -1,19 +1,7 @@
 const Product = require("../models/Product");
 const Vendor = require("../models/Vendor");
 const Firm = require("../models/Firm");
-const multer = require("multer");
 const path = require("path");
-
-// -------------------- MULTER CONFIG --------------------
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({ storage: storage });
 
 // -------------------- ADD PRODUCT CONTROLLER --------------------
 const addProduct = async (req, res) => {
@@ -99,7 +87,7 @@ const deleteProductById = async (req, res) => {
 
 // -------------------- EXPORT MODULE --------------------
 module.exports = {
-  addProduct: [upload.single("image"), addProduct],
+  addProduct,
   getProductByFirm,
   deleteProductById
 };
